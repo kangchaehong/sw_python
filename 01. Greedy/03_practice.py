@@ -14,6 +14,7 @@ for i in range(a) :
 print(group)
 
 # # example
+
 # group = 0
 # cnt = 0
 #

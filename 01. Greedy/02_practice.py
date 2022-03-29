@@ -1,5 +1,6 @@
 # a = input()
 # sum = 0
+#
 # for i in range(len(a)) :
 #     if (sum + int(a[i])) >= (sum*int(a[i])) :
 #         sum +=int(a[i])
