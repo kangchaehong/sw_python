@@ -17,4 +17,4 @@ for i in range(n-1) :
     for j in range(i+1, n) :
         if s[i] > s[j] :
             d[j] = max(d[j], d[i]+1)
-print(n- max(d))
+print(n-max(d))

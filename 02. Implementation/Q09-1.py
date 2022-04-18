@@ -19,7 +19,7 @@ def solution(s):
 
     return answer
 
-sb ="abcabcddde"
+sb ="aabbaccc"
 print(solution(sb))
 
 

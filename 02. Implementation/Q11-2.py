@@ -55,6 +55,8 @@ def simulate():
         if index < l and time == info[index][0]:
             direction = turn(direction, info[index][1])
             index += 1
+            print(direction)
+        print(q)
     return time
 
 
