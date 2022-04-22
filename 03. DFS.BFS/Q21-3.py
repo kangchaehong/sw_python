@@ -13,7 +13,7 @@ def bfs(x,y) :
     move_q = deque()
     q.append([x,y])
     c[x][y] = 1
-    people,cnt = 0,0
+    people,cnt = 0,0 # cnt : 나눌 총 개수
     while q :
         x,y = q.popleft()
         move_q.append([x,y])
@@ -26,6 +26,9 @@ def bfs(x,y) :
                 if l <= abs(union[nx][ny]-union[x][y]) <= r :
                     c[nx][ny] = cnt
                     q.append([nx,ny])
+    print('cnt', cnt)
+    print('c', c)
+    print(union)
     while move_q :
         x,y = move_q.popleft()
         union[x][y] = people // cnt
