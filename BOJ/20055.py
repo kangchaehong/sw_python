@@ -1,37 +1,35 @@
+from collections import deque
+
 n, k = map(int,input().split())
-container = list(map(int, input().split()))
-robot = [0]*len(container)
-# 초기 up down 위치
-up = 0
-down = n-1
-# 0 카운트
-cnt0 = 0
+container = deque(list(map(int, input().split())))
+robot = deque([0]*n)
+
 step = 0
+
 while True :
-    cnt0 = 0
-    print('up',up,'down',down)
-    if container[up] >= 1 and robot[up] == 0:
-        robot[up] = 1
-        container[up] -= 1
-    print('c', container)
-    if robot[down] == 1 :
-        robot[down] = 0
-    print('r', robot)
-
-    # 회전
-    if up == 0 :
-        up = len(container) -1
-    else :
-        up -= 1
-    if down == 0 :
-        down = len(container) - 1
-    else :
-        down -= 1
-
-    for i in range(2*n) :
-        if container[i] == 0 :
-            cnt0 += 1
-    if cnt0 == k :
-        break
     step += 1
+    # step1 벨트, 로봇 이동
+    container.rotate(1)
+    robot.rotate(1)
+    robot[-1] = 0
+
+    # step2 로봇 이동 (끝에서 부터 확인! 먼저 들어온 것 부터, n-1에서 나가니까 n-2부터 탐색!)
+    if robot :
+        for i in range(n-2, -1, -1) :
+            if robot[i] == 1 and robot[i+1] == 0 and container[i+1] >=1 :
+                container[i+1] -= 1
+                robot[i] = 0
+                robot[i+1] = 1
+        robot[-1] = 0
+
+    # step3 로봇 올리기
+    if robot[0] == 0 and container[0]!=0 :
+        robot[0] = 1
+        container[0] -= 1
+
+    # step4 count 세기
+    cnt0 = 0
+    if container.count(0) >=k :
+        break
+
 print(step)
