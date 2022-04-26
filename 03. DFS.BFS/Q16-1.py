@@ -28,13 +28,12 @@ def get_score():
     return score
 
 def dfs(count) :
-    global result
+    global result, aaa
 
     if count == 3 :
         for i in range(n) :
             for j in range(m) :
                 temp[i][j] = data[i][j]
-
         for i in range(n) :
             for j in range(m) :
                 if temp[i][j] == 2 :
@@ -50,6 +49,5 @@ def dfs(count) :
                 dfs(count)
                 data[i][j] = 0
                 count -= 1
-
 dfs(0)
 print(result)

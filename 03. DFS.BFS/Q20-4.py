@@ -26,19 +26,22 @@ def dfs() :
     return True
 
 def obsatcle(cnt) :
-    global find
+    global find, a
     if cnt > 3 :
         return
     if cnt == 3 :
+        a += 1
         for i in range(n):
             for j in range(n) :
                 temp[i][j] = school[i][j]
-
+        print(a)
+        print(school)
         if dfs() is True :
             find = 'YES'
             return
         else :
             find ='NO'
+
 
     for i in range(n) :
         for j in range(n) :
@@ -51,5 +54,6 @@ def obsatcle(cnt) :
                     return
                 school[i][j] = 'X'
                 cnt-=1
+a = 0
 obsatcle(0)
 print(find)

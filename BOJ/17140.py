@@ -3,54 +3,50 @@ newa = []
 b = []
 
 # R 연산 : 행 >= 열
-def R(a) :
-    cnt = 0
+def R() :
     maxlen = 0
-    for alist in a :
-        del alist[0]
-        for value in alist :
-            for k in range(len(b)) :
-                if b[k][0] == value :
-                    # print(b)
-                    b[k][1] += 1
-                    break
-            else :
-                b.append([value,1])
-        b.sort(key=lambda x : (x[1],x[0]))
-        newa.append([])
+    temp_matrix = []
+    for i in range(len(a)) :
+        numbers = set(a[i])
+        temp = []
+        for num in numbers :
+            if num == 0 :
+                continue
+            temp.append([num, a[i].count(num)])
+        maxlen = max(maxlen, len(temp)*2)
+        temp_matrix.append(temp)
 
-        # 입력
-        for i in range(len(b)) :
-            for j in range(len(b[0])) :
-                newa[cnt].append(b[i][j])
-            maxlen = max(maxlen, len(newa[cnt]))
-        cnt += 1
+    for i in range(len(temp_matrix)) :
+        temp_matrix[i].sort(key=lambda x : (x[1],x[0]))
 
-        # 0 넣어주기
-        for i in range(len(newa)) :
-            if len(newa[i]) < maxlen :
-                for _ in range(maxlen-len(newa[i])) :
-                    newa[i].append(0)
-        b = []
-    return newa
+    for i in range(len(temp_matrix)) :
+        templst = []
+        for j in range(len(temp_matrix[i])) :
+            templst.append(temp_matrix[i][j][0])
+            templst.append(temp_matrix[i][j][1])
+        templst.extend([0]*(maxlen-len(templst)))
+        if len(templst) > 100 :
+            templst = templst[:100]
+        a[i] = templst
 
-def main() :
-    time = 0
+if __name__ == "__main__" :
     r, c, k = map(int, input().split())
     a = [list(map(int, input().split())) for _ in range(3)]
-    while True :
-        if r < len(a) and c < len(a[0]):
-            if a[r][c] == k:
-                return time
+    time = 0
+
+    while time < 101 :
+        if r-1 < len(a) and c-1 < len(a[0]) :
+            if a[r-1][c-1] == k:
+                print(time)
+                break
+
+        if len(a) >= len(a[0]):
+            R()
         else :
-            if len(a) >= len(a[0]):
-                a = R(a)
-            else :
-                a = list(map(list, zip(*a)))
-                a = R(a)
-                a = list(map(list, zip(*a)))
-            time+=1
-            if time > 100 :
-                return -1
-    print(time)
-main()
+            a = list(map(list, zip(*a)))
+            R()
+            a = list(map(list, zip(*a)))
+        time+=1
+
+    else :
+        print(-1)
